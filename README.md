@@ -1,0 +1,4 @@
+exceptioSlider
+==============
+
+Simple jQuery Slider
