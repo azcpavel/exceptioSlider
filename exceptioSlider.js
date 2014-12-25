@@ -12,11 +12,14 @@
 		fx : 'slide',
 		direction : 'right',
 		sliderWidth : '100%',
-		wrapClass : 'exSlider',		
+		wrapClass : 'exSlider',
+		textAlign : 'center',
+		pushOnHover : true,		
 		delay : 5000,
 		beforeSlide : function(){},
 		afterSlide : function(){}		
 	}
+
 	$.fn.exceptioSlider = function(options){
 		if(this.length == 0) return this;
 
@@ -26,21 +29,27 @@
 			return this;
 		}
 
+		$(window).resize(function(){
+			ex.reloadSlider();			
+		});
+
 		// create a namespace to be use in functions
 		var slider = {};
 		// set a reference to our exceptioSlider element
-		var ex = this;		
+		var ex = this;
+		// create a namespace for slideFX
+		var slideFX = {};		
 
 		var windowWidth = $(window).width();
 		var windowHeight = $(window).height();		
 
-		var init = function(options){
+		//Initializes namespace settings		
+		var initSlider = function(options){			
 			
 			slider.settings = $.extend({}, defaultOptions, options);
 			ex.wrap('<div class="' + slider.settings.wrapClass + '"><div class="ex-viewport"></div></div>');
 			ex.viewport = ex.parent();
-			ex.css({'width':slider.settings.sliderWidth,padding : 0});
-
+			ex.css({'width':slider.settings.sliderWidth, padding : 5});
 
 			ex.children().each(function(index){
 				slider.settings.numChild = index;				
@@ -49,7 +58,7 @@
 			ex.viewport.css({
 				width: '100%',
 				overflow: 'hidden',
-				position: 'relative',
+				position: 'relative',				
 				height: (ex.children().height()) +'px'
 			});
 			
@@ -61,34 +70,58 @@
 
 		};
 
+		//Initializes namespace settings for Fade FX
 		var setupFade = function(){			
 
-			ex.children().css({'list-style':'none', 'position':'relative', 'float':'left', 'width': ex.width()+'px'});
+			ex.children().css({'list-style':'none', 'position':'relative', 'float':'left', textAlign : slider.settings.textAlign, 'width': ex.width()+'px'});
 			
-			ex.children().repeat().each($).fadeIn(slider.settings.afterSlide).delay(slider.settings.delay).wait(noHover).fadeOut(slider.settings.beforeSlide);
+			if(slider.settings.pushOnHover == false)
+				ex.children().repeat().each($).fadeIn(slider.settings.afterSlide).wait(slider.settings.delay).fadeOut(slider.settings.beforeSlide);
+			else
+				ex.children().repeat().each($).fadeIn(slider.settings.afterSlide).wait(slider.settings.delay).wait(noHover).fadeOut(slider.settings.beforeSlide);
 		};
 
+		//Initializes namespace settings for Slide FX
 		var setupSlide = function(){
 
 			if(slider.settings.direction == 'right'){
 
-				ex.children().css({'list-style':'none', 'position':'relative','right':'-100%','width': ex.width()+'px'});
+				ex.children().css({'list-style':'none', 'position':'relative', textAlign : slider.settings.textAlign, 'right':'-100%','width': ex.width()+'px'});
 
-				ex.children().repeat().each($).fadeIn(0).animate({opacity:1,right:0},slider.settings.afterSlide).delay(slider.settings.delay).fadeOut(0).wait(noHover).animate({opacity:0,right:'-100%'},0,slider.settings.beforeSlide);
-			}
+				if(slider.settings.pushOnHover == false)
+					ex.children().repeat().each($).fadeIn(0).animate({opacity:1,right:0},slider.settings.afterSlide).wait(slider.settings.delay).fadeOut(0).animate({opacity:0,right:'-100%'},0,slider.settings.beforeSlide);
+				else
+					ex.children().repeat().each($).fadeIn(0).animate({opacity:1,right:0},slider.settings.afterSlide).wait(slider.settings.delay).wait(noHover).fadeOut(0).animate({opacity:0,right:'-100%'},0,slider.settings.beforeSlide);
+			}		
 			else{
 
-				ex.children().css({'list-style':'none', 'position':'relative','left':'-100%','width': ex.width()+'px'});
+				ex.children().css({'list-style':'none', 'position':'relative', textAlign : slider.settings.textAlign, 'left':'-100%','width': ex.width()+'px'});
 
-				ex.children().repeat().each($).fadeIn(0).animate({opacity:1,left:0},slider.settings.afterSlide).delay(slider.settings.delay).fadeOut(0).wait(noHover).animate({opacity:0,left:'-100%'},0,slider.settings.beforeSlide);	
+				if(slider.settings.pushOnHover == false)
+					ex.children().repeat().each($).fadeIn(0).animate({opacity:1,left:0},slider.settings.afterSlide).wait(slider.settings.delay).fadeOut(0).animate({opacity:0,left:'-100%'},0,slider.settings.beforeSlide);
+				else
+					ex.children().repeat().each($).fadeIn(0).animate({opacity:1,left:0},slider.settings.afterSlide).wait(slider.settings.delay).wait(noHover).fadeOut(0).animate({opacity:0,left:'-100%'},0,slider.settings.beforeSlide);	
 			}
 		};
 
+		//Initializes namespace settings for Push on Hover
 		var noHover = function () {
 		    return this.is(':hover') ? this.wait('mouseleave') : this
 		};
 
-		init(options);
+		//Initializes namespace settings for Destroy Slider
+		ex.desrtoySlider = function (){				
+			$(this).unwrap().unwrap();
+			$(this).children().css({'list-style':'initial','float':'none'})			
+		}
+
+		//Initializes namespace settings for Reload Slider
+		ex.reloadSlider = function (){
+			ex.desrtoySlider();
+			initSlider();
+		}
+
+		initSlider(options);
 		
 	}
 })(jQuery);
