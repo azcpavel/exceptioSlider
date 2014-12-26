@@ -9,15 +9,15 @@
 ;(function($) {
 	
 	var defaultOptions = {
-		fx : 'slide',
-		direction : 'right',
-		sliderWidth : '100%',
-		wrapClass : null,
-		textAlign : 'center',
-		pushOnHover : true,		
-		delay : 5000,
-		beforeSlide : function(){},
-		afterSlide : function(){}		
+		fx : 'slide', //slide,fade
+		direction : 'right', //slide direction in slide fx
+		sliderWidth : '100%', //ul element width
+		wrapClass : null, //if you wish to add additional class in wrapper
+		textAlign : 'center', //li element text-align
+		pushOnHover : true, //apply push on mouse hover		
+		delay : 5000, //fx duration
+		beforeSlide : function(){}, //exec before slide
+		afterSlide : function(){} //exec after slide		
 	}
 
 	$.fn.exceptioSlider = function(options){
