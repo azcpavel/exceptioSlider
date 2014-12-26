@@ -16,6 +16,8 @@ defaultOptions = {
 		afterSlide : function(){} //exec after slide		
 	}
 $(document).ready(function(){
-		$('.test').exceptioSlider();	
+		$('.test').exceptioSlider({
+			fx : 'fade'
+		});	
 	});	
 ```
