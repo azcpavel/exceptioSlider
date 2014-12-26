@@ -12,7 +12,7 @@
 		fx : 'slide',
 		direction : 'right',
 		sliderWidth : '100%',
-		wrapClass : 'exSlider',
+		wrapClass : null,
 		textAlign : 'center',
 		pushOnHover : true,		
 		delay : 5000,
@@ -47,19 +47,25 @@
 		var initSlider = function(options){			
 			
 			slider.settings = $.extend({}, defaultOptions, options);
-			ex.wrap('<div class="' + slider.settings.wrapClass + '"><div class="ex-viewport"></div></div>');
+			
+			ex.wrap('<div class="exSlider" data-exsliderindex="'+$( "ul" ).index(ex)+'"><div class="ex-viewport"></div></div>');
 			ex.viewport = ex.parent();
-			ex.css({'width':slider.settings.sliderWidth, padding : 5});
+			ex.wrap = ex.viewport.parent();
+			if(slider.settings.wrapClass != null)
+				ex.wrap.addClass(slider.settings.wrapClass);
+
+			ex.css({'width':slider.settings.sliderWidth, margin : 0, padding : 0});
 
 			ex.children().each(function(index){
 				slider.settings.numChild = index;				
 			});
 
 			ex.viewport.css({
-				width: '100%',
+				width: ex.parent().width()-10,
 				overflow: 'hidden',
-				position: 'relative',				
-				height: (ex.children().height()) +'px'
+				position: 'relative',
+				padding : 5,								
+				height: (ex.children().height()-2) +'px'
 			});
 			
 
