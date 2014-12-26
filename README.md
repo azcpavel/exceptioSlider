@@ -15,6 +15,7 @@ defaultOptions = {
 		beforeSlide : function(){}, //exec before slide
 		afterSlide : function(){} //exec after slide		
 	}
+	
 $(document).ready(function(){
 		$('.test').exceptioSlider({
 			fx : 'fade'
