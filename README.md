@@ -20,5 +20,11 @@ $(document).ready(function(){
 		$('.test').exceptioSlider({
 			fx : 'fade'
 		});	
-	});	
+	});
+	
+<ul class="test">
+	<li>123</li>
+	<li>456</li>
+	<li>789</li>
+</lu>
 ```
