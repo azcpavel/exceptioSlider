@@ -1,9 +1,9 @@
 /*
- * ExceptioSlider v1.1.1 - Fully loaded, responsive content slider
- * A Product of Exceotion Solutions
- * http://exceptionsolutions.com
- * 2014, Ahsan Zahid Chowdhury - http://itszahid.info
- * 
+* ExceptioSlider v1.1.1 - Fully loaded, responsive content slider
+* A Product of Exceotion Solutions
+* http://exceptionsolutions.com
+* OCT 2014, Ahsan Zahid Chowdhury - http://itszahid.info
+* 
 */
 
 ;(function($) {
