@@ -26,5 +26,5 @@ $(document).ready(function(){
 	<li>123</li>
 	<li>456</li>
 	<li>789</li>
-</lu>
+</ul>
 ```
